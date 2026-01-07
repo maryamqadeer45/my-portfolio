@@ -92,7 +92,7 @@
         .hero {
             height: 100vh;
             background: linear-gradient(rgba(15, 23, 42, 0.9), rgba(15, 23, 42, 0.95)), 
-                        url('https://images.unsplash.com/photo-1555066931-4365d14bab8c?ixlib=rb-4.0.3&auto=format&fit=crop&w=1170&q=80');
+                        url('https://images.unsplash.com/photo-1555066931-4365d14bab8c?ixlib=rb-4');
             background-size: cover;
             background-position: center;
             display: flex;
@@ -101,6 +101,8 @@
             text-align: center;
             color: var(--text-light);
             padding: 0 20px;
+            position: relative;
+    padding-top: 100px; /* Creates space below navbar */
         }
 
         .hero-content {
@@ -127,29 +129,101 @@
             color: var(--text-muted);
         }
 
-        .profile-container {
-            width: 180px;
-            height: 180px;
-            margin: 0 auto 30px;
-            position: relative;
-        }
+      /* Profile Image Position Fix with Hover Effects */
+.profile-container {
+    margin-top: 60px !important;
+    width: 200px;
+    height: 200px;
+    margin-left: auto;
+    margin-right: auto;
+    position: relative;
+    cursor: pointer;
+    transition: all 0.4s ease;
+}
 
-        .profile-img {
-            width: 100%;
-            height: 100%;
-            border-radius: 50%;
-            object-fit: cover;
-            border: 4px solid var(--pista-green);
-            box-shadow: 0 0 30px rgba(167, 243, 208, 0.3);
-            animation: float 6s ease-in-out infinite;
-        }
+.profile-container:hover {
+    transform: translateY(-10px);
+}
 
-        .profile-img:hover {
-            transform: scale(1.05);
-            box-shadow: 0 0 40px rgba(167, 243, 208, 0.5);
-        }
+.profile-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 4px solid rgba(255, 255, 255, 0.3);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    transition: all 0.4s ease;
+    filter: grayscale(10%);
+}
 
-        .tagline {
+.profile-img:hover {
+    transform: scale(1.05);
+    border-color: #a7f3d0;
+    box-shadow: 0 15px 30px rgba(167, 243, 208, 0.3);
+    filter: grayscale(0%);
+}
+
+/* Glow Effect on Hover */
+.profile-container::after {
+    content: '';
+    position: absolute;
+    top: -10px;
+    left: -10px;
+    right: -10px;
+    bottom: -10px;
+    border-radius: 50%;
+    background: linear-gradient(45deg, #a7f3d0, #34d399, #10b981);
+    z-index: -1;
+    opacity: 0;
+    transition: opacity 0.4s ease;
+}
+
+.profile-container:hover::after {
+    opacity: 0.3;
+    animation: pulse 2s infinite;
+}
+
+/* Pulse Animation */
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+        opacity: 0.3;
+    }
+    50% {
+        transform: scale(1.1);
+        opacity: 0.2;
+    }
+    100% {
+        transform: scale(1);
+        opacity: 0.3;
+    }
+}
+
+/* Tooltip on Hover */
+.profile-container::before {
+    content: 'MERN Stack Developer';
+    position: absolute;
+    bottom: -40px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(0, 0, 0, 0.8);
+    color: white;
+    padding: 5px 10px;
+    border-radius: 4px;
+    font-size: 12px;
+    white-space: nowrap;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    z-index: 10;
+}
+
+.profile-container:hover::before {
+    opacity: 1;
+}
+
+/* Responsive adjustments */
+  
+    .tagline {
             background: rgba(167, 243, 208, 0.1);
             padding: 15px 30px;
             border-radius: 50px;
@@ -663,7 +737,9 @@
                 padding: 20px;
                 box-shadow: 0 10px 20px rgba(0,0,0,0.1);
             }
-            
+             .hero {
+        padding-top: 80px;
+    }
             .nav-links.active {
                 display: flex;
             }
@@ -690,8 +766,12 @@
             .projects-grid {
                 grid-template-columns: 1fr;
             }
+             .profile-container {
+        width: 180px;
+        height: 180px;
+        margin-top: 50px !important;
+    }
         }
-
         @media (max-width: 576px) {
             .hero h1 {
                 font-size: 1.8rem;
@@ -706,11 +786,28 @@
                 flex-direction: column;
             }
             
-            .profile-container {
-                width: 150px;
-                height: 150px;
-            }
+             .profile-container {
+        width: 180px;
+        height: 180px;
+        margin-top: 40px;
+    }
         }
+        
+@media (max-width: 480px) { 
+    .hero {
+        padding-top: 70px;
+    }
+    
+     .profile-container {
+        width: 160px;
+        height: 160px;
+        margin-top: 40px !important;
+    }
+     .profile-container::before {
+        font-size: 10px;
+        bottom: -35px;
+    }
+}
 
         .menu-btn {
             display: none;
@@ -741,30 +838,30 @@
     </nav>
 
     <!-- Hero Section -->
-    <section id="home" class="hero">
-        <div class="hero-content">
-            <!-- Profile Image with Effects -->
-            <div class="profile-container">
-                <img src="https://images.unsplash.com/photo-1494790108755-2616b786d4d9?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" 
-                     alt="Maryam Qadeer" 
-                     class="profile-img">
-            </div>
-            
-            <h1>MARYAM QADEER</h1>
-            <h2>MERN STACK DEVELOPER</h2>
-            
-            <div class="tagline">
-                <i class="fas fa-certificate"></i> SMIT Certified | Problem Solver | Full Stack Expert
-            </div>
-            
-            <p>"I don't just write code - I build solutions that solve real business problems"</p>
-            
-            <div>
-                <a href="#projects" class="btn">View My Projects</a>
-                <a href="#contact" class="btn btn-secondary">Hire Me Now</a>
-            </div>
+   <section id="home" class="hero">
+    <div class="hero-content">
+        <!-- Profile Image with Effects - Added margin-top -->
+        <div class="profile-container" style="margin-top: 80px;">
+            <img src="./WhatsApp Image 2025-12-29 at 12.18.35 PM (1).jpeg" 
+                 alt="Maryam Qadeer" 
+                 class="profile-img">
         </div>
-    </section>
+        
+        <h1>MARYAM QADEER</h1>
+        <h2>MERN STACK DEVELOPER</h2>
+        
+        <div class="tagline">
+            <i class="fas fa-certificate"></i> SMIT Certified | Problem Solver | Full Stack Expert
+        </div>
+        
+        <p>"I don't just write code - I build solutions that solve real business problems"</p>
+        
+        <div class="hero-buttons">
+            <a href="#projects" class="btn">View My Projects</a>
+            <a href="#contact" class="btn btn-secondary">Hire Me Now</a>
+        </div>
+    </div>
+</section>
 
     <!-- About Section -->
     <section id="about" class="section">
@@ -772,7 +869,7 @@
             <h2 class="section-title">About Me</h2>
             <div class="about-content">
                 <div class="about-image">
-                    <img src="./WhatsApp Image 2026-01-05 at 2.33.42 PM.jpeg">
+                    <img src="./WhatsApp Image 2025-12-29 at 12.18.35 PM (1).jpeg">
                 </div>
                 <div class="about-text">
                     <h3>Hi, I'm Maryam Qadeer</h3>
@@ -926,7 +1023,7 @@
                             <span class="tech-tag">Design</span>
                         </div>
                         <div class="project-links">
-                            <a href="https://whitespaceprojectnameexample1234567.vercel.app" target="_blank" class="project-link">
+                            <a href="https://whitespace-project-git-main-maryam-qadeers-projects-e012b030.vercel.app/" target="_blank" class="project-link">
                                 <i class="fas fa-external-link-alt"></i> Live Demo
                             </a>
                         </div>
@@ -1029,7 +1126,7 @@
                     
                     <div class="contact-detail">
                         <i class="fas fa-envelope"></i>
-                        <span>Email: softwareengineer@gmail.com</span>
+                        <span>Email: softwareengineer724@gmail.com</span>
                     </div>
                     
                     <div class="contact-detail">
@@ -1057,68 +1154,12 @@
                 </div>
                 
                 <!-- Real Contact Form -->
-                <form class="contact-form" id="contactForm">
-                    <!-- Status Messages -->
-                    <div id="formStatus" class="form-status"></div>
-                    
-                    <div class="form-group">
-                        <label for="name">Your Name *</label>
-                        <input type="text" id="name" class="form-control" placeholder="Enter your name" required>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="email">Email Address *</label>
-                        <input type="email" id="email" class="form-control" placeholder="Enter your email" required>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="phone">Phone Number (Optional)</label>
-                        <input type="tel" id="phone" class="form-control" placeholder="Your phone number">
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="project">Project Type *</label>
-                        <select id="project" class="form-control" required>
-                            <option value="">Select project type</option>
-                            <option value="website">Website Development</option>
-                            <option value="ecommerce">E-commerce Store</option>
-                            <option value="dashboard">Business Dashboard</option>
-                            <option value="booking">Booking System</option>
-                            <option value="api">API Development</option>
-                            <option value="other">Other</option>
-                        </select>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="budget">Budget Range *</label>
-                        <select id="budget" class="form-control" required>
-                            <option value="">Select budget</option>
-                            <option value="under-500">Under $500</option>
-                            <option value="500-1000">$500 - $1,000</option>
-                            <option value="1000-5000">$1,000 - $5,000</option>
-                            <option value="5000+">$5,000+</option>
-                            <option value="discuss">Need to Discuss</option>
-                        </select>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="message">Project Details *</label>
-                        <textarea id="message" class="form-control" rows="5" placeholder="Tell me about your project, timeline, requirements..." required></textarea>
-                    </div>
-                    
-                    <button type="submit" class="btn" style="width: 100%;" id="submitBtn">
-                        <i class="fas fa-paper-plane"></i> Send Message
-                    </button>
-                    
-                    <p style="margin-top: 15px; font-size: 0.9rem; color: var(--text-muted); text-align: center;">
-                        <i class="fas fa-info-circle"></i> I'll respond within 24 hours
-                    </p>
-                </form>
+               
             </div>
         </div>
     </section>
 
-   <!-- Footer -->
+  <!-- Footer -->
 <footer>
     <div class="container">
         <div class="footer-content">
@@ -1136,8 +1177,17 @@
                     <i class="fab fa-linkedin"></i>
                 </a>
                 
+                <!-- GitHub Link - Direct Profile -->
+                <a href="https://github.com/maryamqadeer45" 
+                   target="_blank"
+                   rel="noopener noreferrer"
+                   title="View my GitHub projects"
+                   aria-label="View Maryam's GitHub profile">
+                    <i class="fab fa-github"></i>
+                </a>
+                
                 <!-- Email Link - Direct Contact -->
-                <a href="mailto:softwareengineer@gmail.com?subject=Project%20Inquiry&body=Hello%20Maryam,%20I%20would%20like%20to%20discuss%20a%20project." 
+                <a href="mailto:softwareengineer724@gmail.com?subject=Project%20Inquiry&body=Hello%20Maryam,%20I%20would%20like%20to%20discuss%20a%20project." 
                    title="Send me an email directly"
                    aria-label="Send direct email to Maryam">
                     <i class="fas fa-envelope"></i>
@@ -1155,8 +1205,11 @@
         <div class="copyright">
             <p>Developed with <span class="heart"><i class="fas fa-heart"></i></span> by Maryam Qadeer | MERN Stack Developer</p>
             <p>SMIT Certified | Available for Freelance Projects</p>
-            <p>Contact directly: <a href="mailto:softwareengineer@gmail.com" style="color: #a7f3d0; text-decoration: none; font-weight: bold;">softwareengineer@gmail.com</a></p>
-            <p><strong>OR Connect on:</strong> <a href="https://www.linkedin.com/in/maryam-qadeer-7a2920356" target="_blank" rel="noopener noreferrer" style="color: #a7f3d0; text-decoration: none;">LinkedIn</a></p>
+            <p>Contact directly: <a href="mailto:softwareengineer724@gmail.com" style="color: #a7f3d0; text-decoration: none; font-weight: bold;">softwareengineer724@gmail.com</a></p>
+            <p><strong>Connect on:</strong> 
+                <a href="https://www.linkedin.com/in/maryam-qadeer-7a2920356" target="_blank" rel="noopener noreferrer" style="color: #a7f3d0; text-decoration: none;">LinkedIn</a> | 
+                <a href="https://github.com/maryamqadeer45" target="_blank" rel="noopener noreferrer" style="color: #a7f3d0; text-decoration: none;">GitHub</a>
+            </p>
             <p><small>Client inquiries welcome | 24-hour response time</small></p>
         </div>
     </div>
@@ -1234,7 +1287,7 @@
                             project: project,
                             budget: budget,
                             message: message,
-                            to: 'softwareengineer@gmail.com', // YOUR EMAIL
+                            to: 'softwareengineer724@gmail.com', // YOUR EMAIL
                             subject: `New Project Inquiry from ${name}`
                         };
                         
@@ -1260,7 +1313,7 @@
                                 project_type: project,
                                 budget: budget,
                                 message: message,
-                                to_email: 'softwareengineer@gmail.com'
+                                to_email: 'softwareengineer724@gmail.com'
                             }
                         );
                         */
@@ -1279,7 +1332,7 @@
                         contactForm.reset();
                         
                         // Also open email client as backup
-                        const mailtoLink = `mailto:softwareengineer@gmail.com?subject=Project Inquiry from ${encodeURIComponent(name)}&body=${encodeURIComponent(
+                        const mailtoLink = `mailto:softwareengineer724@gmail.com?subject=Project Inquiry from ${encodeURIComponent(name)}&body=${encodeURIComponent(
                             `Name: ${name}\nEmail: ${email}\nPhone: ${phone}\nProject Type: ${project}\nBudget: ${budget}\n\nMessage:\n${message}`
                         )}`;
                         
@@ -1289,12 +1342,12 @@
                     } catch (error) {
                         console.error('Error sending message:', error);
                         showFormStatus(
-                            'There was an error sending your message. Please email me directly at softwareengineer@gmail.com',
+                            'There was an error sending your message. Please email me directly at softwareengineer724@gmail.com',
                             'error'
                         );
                         
                         // Open email client as fallback
-                        const mailtoLink = `mailto:softwareengineer@gmail.com?subject=Project Inquiry from ${encodeURIComponent(name)}&body=${encodeURIComponent(
+                        const mailtoLink = `mailto:softwareengineer724@gmail.com?subject=Project Inquiry from ${encodeURIComponent(name)}&body=${encodeURIComponent(
                             `Name: ${name}\nEmail: ${email}\nPhone: ${phone}\nProject Type: ${project}\nBudget: ${budget}\n\nMessage:\n${message}`
                         )}`;
                         window.open(mailtoLink, '_blank');
